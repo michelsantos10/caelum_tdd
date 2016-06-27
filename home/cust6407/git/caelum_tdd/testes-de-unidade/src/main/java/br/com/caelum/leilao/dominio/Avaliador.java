@@ -16,6 +16,10 @@ public class Avaliador {
 		Lance LanceAnterior = null;
 		Map<Integer, Integer> lancePorIdUsuario = new HashMap<Integer, Integer>();
 
+		if (leilao.getLances().size() == 0) {
+			throw new RuntimeException("É preciso ao menos um lance para a avaliaçcao do leilão.");
+		}
+
 		for (Lance lance : leilao.getLances()) {
 			if (LanceAnterior != null
 					&& LanceAnterior.getValorProposto() <= lance

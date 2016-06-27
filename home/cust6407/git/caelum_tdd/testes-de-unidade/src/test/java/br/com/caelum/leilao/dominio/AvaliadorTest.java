@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 public class AvaliadorTest {
@@ -144,15 +145,12 @@ public class AvaliadorTest {
 		}
 	}
 
-	@Test
+	@Test(expected = RuntimeException.class)
 	public void testLeilaoSemLance() throws Exception {
-		Leilao leilao = new Leilao("Playstation 3 novo");
-
+		Leilao leilao = CriadorDeLeilao.cria().para("Playstation 3 novo")
+				.controi();
 		Avaliador leiloeiro = new Avaliador();
 		leiloeiro.Avalia(leilao);
-
-		// Caso não ocorra exceção, então o teste está ok
-		assertFalse(false);
 	}
 
 	@Test
