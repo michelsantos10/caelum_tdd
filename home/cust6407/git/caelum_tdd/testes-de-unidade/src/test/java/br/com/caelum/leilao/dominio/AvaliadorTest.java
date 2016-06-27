@@ -2,15 +2,14 @@ package br.com.caelum.leilao.dominio;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
+
 
 public class AvaliadorTest {
 
@@ -66,6 +65,32 @@ public class AvaliadorTest {
 				new Double[] { maiorLanceEsperado, menorLanceEsperado },
 				new Double[] { leiloeiro.getMaiorDeTodos(),
 						leiloeiro.getMenorDeTodos() });
+	}
+
+	@Test
+	public void testLancesProcessadosNaOrdemCorreta() throws Exception {
+		Usuario joao = new Usuario("João");
+		Usuario jose = new Usuario("José");
+		Usuario maria = new Usuario("Maria");
+		Usuario jorge = new Usuario("Jorge");
+		Usuario mariana = new Usuario("Mariana");
+
+		Leilao leilao = CriadorDeLeilao.cria().para("Playstation 3 novo")
+				.lance(joao, 100.0).lance(jose, 300.0).lance(maria, 200.0)
+				.lance(jorge, 500.0).lance(mariana, 400.0).controi();
+
+		Avaliador leiloeiro = new Avaliador();
+		leiloeiro.Avalia(leilao);
+
+		ArrayList<Double> valoresEsperados = new ArrayList<Double>();
+
+		valoresEsperados.add(100.0);
+		valoresEsperados.add(300.0);
+		valoresEsperados.add(200.0);
+		valoresEsperados.add(500.0);
+		valoresEsperados.add(400.0);
+
+		
 	}
 
 	@Test
